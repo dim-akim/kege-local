@@ -1,0 +1,11 @@
+[project]
+name = "kege-local"
+version = "0.1.0"
+description = "Web-server for local KEGE tests"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asyncpg>=0.30.0",
+    "fastapi[standard]>=0.115.12",
+    "sqlmodel>=0.0.24",
+]
