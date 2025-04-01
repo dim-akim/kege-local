@@ -5,7 +5,11 @@ description = "Web-server for local KEGE tests"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic>=1.15.2",
     "asyncpg>=0.30.0",
     "fastapi[standard]>=0.115.12",
+    "orjson>=3.10.16",
+    "pydantic-settings>=2.8.1",
+    "requests>=2.32.3",
     "sqlmodel>=0.0.24",
 ]
