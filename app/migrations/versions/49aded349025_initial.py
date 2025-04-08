@@ -32,8 +32,9 @@ def upgrade() -> None:
         sa.Column('sub_task', sa.JSON(), nullable=True),
         sa.Column('table', sa.JSON(), nullable=True),
         sa.Column('difficulty', sa.Integer(), nullable=False),
-        sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
-        sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('pulled_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
         sa.Column('is_deleted', sa.Boolean(), nullable=False),
         sa.PrimaryKeyConstraint('id')
     )
