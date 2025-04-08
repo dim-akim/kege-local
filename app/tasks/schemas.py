@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlmodel import SQLModel, Field, JSON
 
 from .models import TaskBase
@@ -27,6 +29,8 @@ class TaskRead(TaskBase):
     id: int = Field(schema_extra={"validation_alias": "taskId"})
     hide: bool
     sub_task: list[dict] = Field(schema_extra={"validation_alias": "subTask"})
+    created_at: datetime = Field(schema_extra={"validation_alias": "createdAt"})
+    updated_at: datetime = Field(schema_extra={"validation_alias": "updatedAt"})
 
 
 class TaskCreate(TaskBase):

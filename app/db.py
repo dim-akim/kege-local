@@ -3,7 +3,7 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import declared_attr
-from sqlmodel import SQLModel, Field, TIMESTAMP, func
+from sqlmodel import SQLModel, Field, TIMESTAMP, func, Column
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.config import settings
@@ -21,10 +21,12 @@ class Base(SQLModel):
 
     id: int | None = Field(default=None, primary_key=True)
     created_at: datetime = Field(default=None,
-                                 sa_column_kwargs={"server_default": func.now()})
+                                 sa_column=Column(TIMESTAMP(timezone=True),
+                                                  server_default=func.now()))
     updated_at: datetime = Field(default=None,
-                                 sa_column_kwargs={"server_default": func.now(),
-                                                   "onupdate": func.now()})
+                                 sa_column=Column(TIMESTAMP(timezone=True),
+                                                  server_default=func.now(),
+                                                  server_onupdate=func.now()))
     is_deleted: bool = Field(default=False)
 
 

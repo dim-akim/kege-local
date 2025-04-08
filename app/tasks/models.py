@@ -1,4 +1,6 @@
-from sqlmodel import SQLModel, Field, JSON, Column
+from datetime import datetime
+
+from sqlmodel import SQLModel, Field, JSON, Column, func, TIMESTAMP
 
 from app.db import Base
 
@@ -16,4 +18,9 @@ class TaskBase(SQLModel):
 
 
 class Task(Base, TaskBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    created_at: datetime = Field(default=None,
+                                 sa_column=Column(TIMESTAMP(timezone=True)))
+    updated_at: datetime = Field(default=None,
+                                 sa_column=Column(TIMESTAMP(timezone=True)))
+    pulled_at: datetime = Field(default=None,
+                                sa_column=Column(TIMESTAMP(timezone=True), server_default=func.now()))
