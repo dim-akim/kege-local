@@ -24,5 +24,5 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 #     allow_headers=["*"],
 # )
 
-# app.include_router(front_router)
+app.include_router(front_router)
 app.include_router(api_router)
