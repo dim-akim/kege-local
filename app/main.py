@@ -3,14 +3,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-# from app.front.router import router as front_router
+from app.front.router import router as front_router
 from app.api import router as api_router
 
 
 app = FastAPI(
     default_response_class=ORJSONResponse,
 )
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # origins = [
 #     "*",
