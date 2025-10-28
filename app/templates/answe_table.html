@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', path='css/answe_table_style.css') }}">
+{% endblock %}
+{% block content %}
+  <div id = "app">
+    <div class="home-wrap">
+      <div class="result">
+        <div class="header">
+          <h1 data-v-50ad28ce>Единый государственный экзамен Информатика и ИКТ (КЕГЭ)</h1>
+        </div>
+        <div class="table content">
+          <div>
+            <div class="white">
+              <p class="kim">КИМ № 25058419 БР № 2832503195017</p><!--временные значения--><!--TODO: надо это автоматизировать -->
+            </div>
+            <p class="text"> Дано ответов
+              <span style="font-weight: 600;">0/27</span>
+            </p>
+            <div class="half left">
+              <p class="summary__header">Результаты экзамена</p>
+              <p class="summary__score">0/100</p>
+              <p class="summary__secondary">Первичный балл: 0/29</p>
+            </div>
+            <div class="half right">
+              <div style="width: 100%;">
+                <div class="buttons">
+                  <table data-v-747d4361 style="margin-right: 10px;" >
+                    <tbody>
+                      <tr class="table__header">
+                        <td>№</td>
+                        <td class="table__answer">Балл</td>
+                        <td class="table__answer">Ваш<br>ответ</td>
+                        <td class="table__answer">Правильный<br>ответ</td>
+                      </tr>
+                      {% for i in range(1, 19) %}
+                        <tr>
+                        <td>
+                          <a class="link" href="{{ url_for('get_task', kim_number=kim_number, task_number=i) }}">{{ i }}</a>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <table data-v-747d4361>
+                    <tbody>
+                      <tr class="table__header">
+                        <td>№</td>
+                        <td class="table__answer">Балл</td>
+                        <td class="table__answer">Ваш<br>ответ</td>
+                        <td class="table__answer">Правильный<br>ответ</td>
+                      </tr>
+                      {% for i in range(19, 28) %}
+                        <tr>
+                        <td>
+                          <a class="link" href="{{ url_for('get_task', kim_number=kim_number, task_number=i) }}">{{ i }}</a>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <input class="exit-btn" type="button" value="Завершить экзамен">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

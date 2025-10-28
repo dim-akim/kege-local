@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', path='css/variation_table_style.css') }}">
+{% endblock %}
+{% block content %}
+  <div class="app">
+    <div class="start_wrap">
+      <div class="header">
+        <div class="header_wrap">
+          <div class="icon_wrap">
+            <a class="fition_button"><!--TODO: сделать это ссылкой на главную станицу-->
+              <img class="icon" src="{{ url_for('static', path='images/logoEGE.png') }}">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="main">
+        <h1>Варианты за 2025/26 учебный год</h1>
+        <div class="variant_wrap">
+          <span>
+            Открытые пробники и реальные варианты
+          </span>
+          <br>
+          <div class="variant">
+            <a href="">Демоверсия</a>
+          </div>
+        </div>
+        <div class="variant_wrap">
+          <span>
+            Авторские варианты
+          </span>
+          <br>
+          <div class="variant">
+            <a href="">М. Мигунов</a>
+          </div>
+          <div class="variant">
+            <a href="">Д. Байт</a>
+          </div>
+        </div>
+        {% for i in range(5,0,-1) %}
+          <h1>Варианты за 202{{ i }}/2{{ i + 1 }} учебный год</h1>
+          <div class="variant_wrap">
+            <span>Открытые пробники и реальные варианты</span>
+            <br>
+            {% for i in range(25) %}
+              <div class="variant">
+                <a href="">Демоверсия {{ i }}</a>
+              </div>
+            {% endfor %}
+            <br>
+            <span>Варианты от Яндекса</span>
+            <br>
+            {% for i in range(10) %}
+              <div class="variant">
+                <a href="">Демоверсия# {{ i }}</a>
+              </div>
+            {% endfor %}
+            <br>
+            <span>Варианты от Л. Шастина</span>
+            <br>
+            {% for i in range(20) %}
+              <div class="variant">
+                <a href="">Л. Шастин # {{ i }}</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block content %}
+  <div id="app">
+    <div class="home-wrap">
+      <div class="exam">
+        <div class="top-bar">
+          <div class="kim-start">
+            <span class="kim-start-num">КИМ № 25058505</span>
+            <span class="kim-start-num">БР № 111111111111</span>
+          </div>
+
+          <div class="kim-end">
+            <span>Завершить экзамен досрочно</span>
+            <img src="{{ url_for('static', path='images/знак вопроса.png') }}" title="Используйте эту кнопку для открытия окна с инструкцией по работе со станцией КЕГЭ, с которой Вы ознакомились перед началом выполнения экзаменационной работы.">
+            <img src="{{ url_for('static', path='images/минус.png') }}" title="Используйте эту кнопку для сворачивания окна станции КЕГЭ и перехода к выполнению заданий с использованием ПО, установленного на компьютер.">
+            <img src="{{ url_for('static', path='images/крест.png') }}" title="Для закрытия станции КЕГЭ необходимо пригласить технического специалиста ППЭ.">
+          </div>
+        </div>
+
+
+        <div class="nav-wrap">
+          <div class="nav">
+            <div>
+              <p class="answer">Дано ответов</p>
+              <p class="answer-num">0/30</p>
+            </div>
+            <div class="block arrow">
+              <p class="arrow">↑</p>
+            </div>
+
+            <div class="tasks">
+              <div class="task-current task-fill block">
+              <p>i</p>
+              </div>
+              {% for i in range(1, 28) %}
+                <div class="task-empty block">
+                  <p class="task-empty">{{ i }}</p>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="block arrow">
+              <p class="arrow">↓</p>
+            </div>
+          </div>
+        </div>
+        <div class="arrow-wrap arrow-left">
+          <div class="button-block">
+            <img src="{{ url_for('static', path='images/лев верх.png') }}" >
+            <img src="{{ url_for('static', path='images/увеличить.png') }}" >
+            <img src="{{ url_for('static', path='images/уменьшить.png') }}" >
+          </div>
+          <div class="arrow-lr">←</div>
+        </div>
+
+        <div class="task-wrap">
+          <div class="task">
+            <div class="text">
+
+              <p>Задание {{ task.id }}</p>
+              <p>
+                На рисунке схема дорог N-ского района изображена в виде графа, в таблице содержатся сведения о протяжённости каждой из этих дорог (в километрах).
+              </p>
+              <p>
+                <img src="{{ url_for('static', path="https://kompege.ru/images/17855.png") }}" title="Используйте эту кнопку для открытия окна с инструкцией по работе со станцией КЕГЭ, с которой Вы ознакомились перед началом выполнения экзаменационной работы." width="500" height="191">
+
+              </p>
+              <p>
+                Так как таблицу и схему рисовали независимо друг от друга, нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите, какова сумма протяжённостей дорог из пункта D в пункт G и из пункта A в пункт C.
+              </p>
+
+            </div>
+          </div>
+        </div>
+        <div class="arrow-wrap arrow-right">
+          <div class="arrow-lr">→</div>
+        </div>
+
+
+        <div class="footer-wrap">
+          <div class="footer">
+            <div class="files"></div>
+            <div>
+              <div class="answer">
+                <input type="text" class="input">
+                <input type="button" class="save" value="Сохранить ответ">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{#  <div class="flex">#}
+{#    <div class="sidebar">#}
+{#      <div>Дано ответов<br>0/30</div>#}
+{#      <div class="active-button"><button><p>↑</p></button></div>#}
+{#      <div class="sidebar-list">#}
+{#        <button class="active-button"><p>i</p></button>#}
+{#        {% for index in range(1, 28) %}#}
+{#          <button class="sidebar-list"><p>{{ index }}</p></button>#}
+{#        {% endfor %}#}
+{#      </div>#}
+{#      <div class="active-button"><button><p>↓</p></button></div>#}
+{##}
+{#    </div>#}
+{##}
+{#    <div class="flex">#}
+{#    <div class="arrow-container">#}
+{#      <button class="pointer-butten"><p>←</p></button>#}
+{#    </div>#}
+{##}
+{#      <div class="content">#}
+{#        <div class="box">#}
+{#          <div class="content-with-image">#}
+{#            <div class="text">#}
+{#              {{ task.id }}#}
+{#              <p>В заданиях используются следующие соглашения.</p>#}
+{#              <p>1 Обозначения для логических связок (операций):<br>#}
+{#              a) отрицание (инверсия, логическое НЕ) обозначается ¬ (например, ¬A);<br>#}
+{#              b) конъюнкция (логическое умножение, логическое И) обозначается ∧ (например, A ∧ B) либо & (например, A & B);<br>#}
+{#              c) дизъюнкция (логическое сложение, логическое ИЛИ) обозначается ∨ (например, A ∨ B) либо | (например, A | B);<br>#}
+{#              d) следование (импликация) обозначается → (например, A → B);<br>#}
+{#              e) тождество обозначается = (например, A = B); выражение A = B истинно тогда и только тогда, когда значения A и B совпадают (либо они оба истинны, либо они оба ложны);<br>#}
+{#              f) символ 1 используется для обозначения истины (истинного высказывания); символ 0 — для обозначения лжи (ложного высказывания).</p>#}
+{#              <p>2 Два логических выражения, содержащие переменные, называются равносильными (эквивалентными), если значения этих выражений совпадают при любых значениях переменных. Так, выражения A → B и (¬A) ∨ B равносильны, а A ∨ B и A ∧ B неравносильны (значения выражений разные, например, при A = 1, B = 0).</p>#}
+{#              <p>3 Приоритеты логических операций: инверсия (отрицание), конъюнкция (логическое умножение), дизъюнкция (логическое сложение), импликация (следование), тождество. Таким образом, ¬A ∧ B ∨ C ∧ D означает то же, что и ((¬A) ∧ B) ∨ (C ∧ D). Возможна запись A ∧ B ∧ C вместо (A ∧ B) ∧ C. То же относится и к дизъюнкции: возможна запись A ∨ B ∨ C вместо (A ∨ B) ∨ C.</p>#}
+{#              <p>4 Обозначения Мбайт и Кбайт используются в традиционном для информатики смысле — как обозначения единиц измерения, соотношение которых с единицей «байт» выражается степенью двойки.</p>#}
+{#              <button class="download-button">Скачать все файлы</button>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="arrow-container">#}
+{#        <button class="pointer-butten"><p>→</p></button>#}
+{#      </div>#}
+{#    </div>#}
+{#    <div class="down-bar"></div>#}
+{#  </div>#}
+
+

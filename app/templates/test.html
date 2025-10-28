@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block content %}
+  <div id="app">
+    <div class="home-wrap">
+      <div class="exam">
+        <div class="top-bar">
+          <div class="kim-start">
+            <span class="kim-start-num">КИМ № {{ kim_number }}</span>
+            <span class="kim-start-num">БР № 1234567890987</span><!--TODO: надо будет автоматизировать -->
+          </div>
+
+          <div class="kim-end"><!--TODO: Надо что бы весь блог был ссылкой на раздел с ответами-->
+            <span><a href="{{ url_for('get_answer', kim_number=kim_number) }}">Завершить экзамен досрочно</a></span>
+            <img src="{{ url_for('static', path='images/знак вопроса.png') }}"
+                 title="Используйте эту кнопку для открытия окна с инструкцией по работе со станцией КЕГЭ, с которой Вы ознакомились перед началом выполнения экзаменационной работы.">
+            <img src="{{ url_for('static', path='images/минус.png') }}"
+                 title="Используйте эту кнопку для сворачивания окна станции КЕГЭ и перехода к выполнению заданий с использованием ПО, установленного на компьютер.">
+            <img src="{{ url_for('static', path='images/крест.png') }}"
+                 title="Для закрытия станции КЕГЭ необходимо пригласить технического специалиста ППЭ.">
+          </div>
+        </div>
+
+
+        <div class="nav-wrap"><!--Это левое меню с номерами заданий и счётчиком сколько заданий сделано из 27-->
+          <div class="nav">
+            <div>
+              <p class="answer">Дано ответов</p>
+              <p class="answer-num">0 / 27</p> <!--TODO: Надо сделать так что бы когда мы отправляли ответ на задание в меню сделанных заданий менялась цифра(не 0/27 а 1/27)-->
+            </div>
+
+            {% if task_number > 0 %}<!--это сделано, что бы не выходить за границы заданий-->
+              <a href="{{ url_for('get_task', kim_number=kim_number, task_number=task_number-1) }}">
+            {% endif %}
+            <div class="block arrow"><!--почему-то нет возможности быстрого многократного нажатия на кнопку(есть какой-то кулдаун)-->
+              ↑
+            </div><!--TODO: Избавится от кулдауна при нажатии и превратить стрелки в перелистывание списка заданий а не переход на следующие -->
+              </a>
+            <div class="tasks">
+{#              <div class="{% if task_number == 0 %}#}
+{#                 task-current#}
+{#               {% endif %}#}
+{#               block task-fill">#}
+{#                <p>i</p>#}
+{#              </div>#}
+              {% for i in range(0, 28) %}
+                {% if task_number == i %}
+
+                  <div class="task-current block"><!--TODO: надо что бы применялся стиль(task-fill) для ячейки 0 при выборе любой другой -->
+                  {% if i == 0 %}
+                    <p> i </p>
+                    {% else %}
+                    <p>{{ i }}</p>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <a href="{{ url_for('get_task', kim_number=kim_number, task_number=i) }}">
+                    <div class="task-empty  block">
+                      {% if i == 0 %}
+                       i
+                      {% else %}
+                        {{ i }}
+                      {% endif %}
+                    </div>
+                  </a>
+                {% endif %}
+              {% endfor %}
+
+            </div>
+            {% if task_number < 27 %}
+              <a href="{{ url_for('get_task', kim_number=kim_number, task_number=task_number + 1) }}">
+            {% endif %}
+            <div class="block arrow">
+              ↓
+            </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="arrow-wrap arrow-left"><!--блок со стрелкой в лево и кнопками размерности-->
+          <div class="button-block">
+            <img src="{{ url_for('static', path='images/лев верх.png') }}"><!--TODO: это должны быть кнопки для увеличения, уменьшения и растягиванья экрана-->
+            <img src="{{ url_for('static', path='images/увеличить.png') }}">
+            <img src="{{ url_for('static', path='images/уменьшить.png') }}">
+          </div>
+          {% if task_number > 0 %}
+            <a href="{{ url_for('get_task', kim_number=kim_number, task_number=task_number - 1) }}">
+          {% endif %}
+          <div class="arrow-lr">←</div>
+          </a>
+        </div>
+
+        <div class="task-wrap"><!--Блок в котором лежит текст задания и его номер-->
+          <div class="task">
+
+            <div class="text">
+              {% if task_number > 0 %}
+              <div>
+                Задание {{ kim[task_number].number | safe }} (№{{ kim[task_number].id | safe }})
+              </div>
+              {% endif %}
+              {{ kim[task_number].text | safe }}
+              <br>
+              {% if task_number == 0 %}
+                <input title="button" class="save" value="Скачать все файлы">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-wrap arrow-right"><!--блок со стрелкой в право-->
+          {% if task_number < 27 %}
+            <a href="{{ url_for('get_task', kim_number=kim_number, task_number=task_number + 1) }}">
+          {% endif %}
+          <div class="arrow-lr">→</div>
+          </a>
+        </div>
+
+
+        {% if kim[task_number].table %}<!--проверка есть ли в задание таблица и последующая работа с ней-->
+          <div class="table-wrap">
+            <div class="table-input">
+              <div class="instruction">
+                <p>Введите или скопируйте свой ответ в поля таблицы</p>
+              </div>
+              <div class="table-border">
+                <div>
+                  <table>
+                    <tbody>
+
+                    <tr>
+                      <td class="border border-col"></td>
+                      <td class="border border-col">1</td>
+                      <td class="border border-col">2</td>
+                    </tr>
+                    {% for i in range (1, kim[task_number].table.rows + 1) %}
+                      <tr>
+                        <td class="border border-col">{{ i }}</td>
+                        <td class="input-col">
+                          <input type="text" class="input" value="">
+                        </td>
+
+                        <td class="input-col">
+                          <input type="text" class="input" value="">
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="buttons">
+                  <input type="button" class="delete" value="Очистить">
+                  <input type="button" class="save_tabl" value="Сохранить ответ">
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+
+
+        <div class="footer-wrap"><!--поле с файлами полем для ответа-->
+          <div class="footer">
+            <div class="file"><!--Если в задание есть фалы-то он их покажет-->
+              {% if kim[task_number].files != [] and kim[task_number].number != 0 %}
+                <a href="{{ kim[task_number].files | safe }}" title="{{ kim[task_number].files[0].name | safe }}"> <img
+                    src="{{ url_for('static', path='images/файл для скачки.png') }}"></a>
+                {{ kim[task_number].files[0].name | safe }}
+              {% endif %}
+            </div>
+            <div>
+              <div class="answer_to_task">
+              {% if kim[task_number].table == {} %} <!-- Проверяет есть ли в задание таблица. Если таблицы нет,
+              то он выводит поле в которое можно ввести ответ-->
+                <input type="text" class="input">
+                <input type="button" class="save" value="Сохранить ответ">
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{##}
+{##}
+{##}
+{##}
+{#  <div class="flex">#}
+{#    <div class="sidebar">#}
+{#      <div>Дано ответов<br>0/30</div>#}
+{#      <div class="active-button"><button><p>↑</p></button></div>#}
+{#      <div class="sidebar-list">#}
+{#        <button class="active-button"><p>i</p></button>#}
+{#        {% for index in range(1, 28) %}#}
+{#          <button class="sidebar-list"><p>{{ index }}</p></button>#}
+{#        {% endfor %}#}
+{#      </div>#}
+{#      <div class="active-button"><button><p>↓</p></button></div>#}
+{##}
+{#    </div>#}
+{##}
+{#    <div class="flex">#}
+{#    <div class="arrow-container">#}
+{#      <button class="pointer-butten"><p>←</p></button>#}
+{#    </div>#}
+{##}
+{#      <div class="content">#}
+{#        <div class="box">#}
+{#          <div class="content-with-image">#}
+{#            <div class="text">#}
+{#              {{ task.id }}#}
+{#              <p>В заданиях используются следующие соглашения.</p>#}
+{#              <p>1 Обозначения для логических связок (операций):<br>#}
+{#              a) отрицание (инверсия, логическое НЕ) обозначается ¬ (например, ¬A);<br>#}
+{#              b) конъюнкция (логическое умножение, логическое И) обозначается ∧ (например, A ∧ B) либо & (например, A & B);<br>#}
+{#              c) дизъюнкция (логическое сложение, логическое ИЛИ) обозначается ∨ (например, A ∨ B) либо | (например, A | B);<br>#}
+{#              d) следование (импликация) обозначается → (например, A → B);<br>#}
+{#              e) тождество обозначается = (например, A = B); выражение A = B истинно тогда и только тогда, когда значения A и B совпадают (либо они оба истинны, либо они оба ложны);<br>#}
+{#              f) символ 1 используется для обозначения истины (истинного высказывания); символ 0 — для обозначения лжи (ложного высказывания).</p>#}
+{#              <p>2 Два логических выражения, содержащие переменные, называются равносильными (эквивалентными), если значения этих выражений совпадают при любых значениях переменных. Так, выражения A → B и (¬A) ∨ B равносильны, а A ∨ B и A ∧ B неравносильны (значения выражений разные, например, при A = 1, B = 0).</p>#}
+{#              <p>3 Приоритеты логических операций: инверсия (отрицание), конъюнкция (логическое умножение), дизъюнкция (логическое сложение), импликация (следование), тождество. Таким образом, ¬A ∧ B ∨ C ∧ D означает то же, что и ((¬A) ∧ B) ∨ (C ∧ D). Возможна запись A ∧ B ∧ C вместо (A ∧ B) ∧ C. То же относится и к дизъюнкции: возможна запись A ∨ B ∨ C вместо (A ∨ B) ∨ C.</p>#}
+{#              <p>4 Обозначения Мбайт и Кбайт используются в традиционном для информатики смысле — как обозначения единиц измерения, соотношение которых с единицей «байт» выражается степенью двойки.</p>#}
+{#              <button class="download-button">Скачать все файлы</button>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="arrow-container">#}
+{#        <button class="pointer-butten"><p>→</p></button>#}
+{#      </div>#}
+{#    </div>#}
+{#    <div class="down-bar"></div>#}
+{#  </div>#}
+
