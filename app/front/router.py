@@ -17,8 +17,14 @@ templates = Jinja2Templates(directory="templates")
 #     text: str
 
 
-
 @router.get("/", response_class=HTMLResponse)
+async def get_variation_table(request: Request):
+    return templates.TemplateResponse(
+        "variation_table.html",
+        {"request": request},
+    )
+
+@router.get("/", response_class=HTMLResponse) #TODO поменять адерс
 async def get_test(request: Request):
     return templates.TemplateResponse(
         request,
@@ -29,12 +35,6 @@ async def get_test(request: Request):
         }
     )
 
-@router.get("/variation_table", response_class=HTMLResponse)
-async def get_variation_table(request: Request):
-    return templates.TemplateResponse(
-        "variation_table.html",   # ← укажи расширение!
-        {"request": request},
-    )
 
 
 @router.get("/{kim_number}", response_class=HTMLResponse)
@@ -42,7 +42,7 @@ async def get_kim(request: Request, kim_number: int):
     return
 
 
-@router.get("/{kim_number}/answers", response_class=HTMLResponse)
+@router.get("/{kim_number}/answers_page", response_class=HTMLResponse)
 async def get_answer(request: Request, kim_number: int):
     return templates.TemplateResponse(
         request,
@@ -69,13 +69,4 @@ async def get_task(request: Request, kim_number: int, task_number: int):
         }
     )
 
-
-
-
-
-
-
-
-
-
-
+# @router.get("/")

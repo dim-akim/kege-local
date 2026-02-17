@@ -38,9 +38,9 @@
                         <td>
                           <a class="link" href="{{ url_for('get_task', kim_number=kim_number, task_number=i) }}">{{ i }}</a>
                         </td>
+                        <td>0</td>
                         <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ kim[i].key.replace('\\n', '<br>') | safe }}</td>
                         </tr>
                       {% endfor %}
                     </tbody>
@@ -58,9 +58,9 @@
                         <td>
                           <a class="link" href="{{ url_for('get_task', kim_number=kim_number, task_number=i) }}">{{ i }}</a>
                         </td>
+                        <td>0</td>
                         <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ kim[i].key.replace('\\n', '<br>') | safe }}</td>
                         </tr>
                       {% endfor %}
                     </tbody>

@@ -4,15 +4,26 @@
 {% endblock %}
 {% block content %}
   <div class="app">
-    <div class="start_wrap">
+
+    <div class="start-wrap">
       <div class="header">
-        <div class="header_wrap">
-          <div class="icon_wrap">
-            <a class="fition_button"><!--TODO: сделать это ссылкой на главную станицу-->
-              <img class="icon" src="{{ url_for('static', path='images/logoEGE.png') }}">
-            </a>
+
+          <div class="header_wrap">
+            <div class="icon_wrap">
+              <a class="fition_button"href="{{ url_for('get_task', kim_number=123456, task_number=0) }}"><!--TODO: сделать это ссылкой на главную станицу-->
+                <img class="icon" src="{{ url_for('static', path='images/logoEGE.png') }}">
+              </a>
+            </div>
+
+{#            <div class="sepaser"></div>#}
+
+            <div class="icon_wrap">
+              <a class="fition_button"><!--TODO: сделать это ссылкой на страницу профиля-->
+                <img class="icon" src="{{ url_for('static', path='images/user_icon.svg') }}">
+              </a>
+            </div>
           </div>
-        </div>
+
       </div>
 
       <div class="main">
@@ -23,7 +34,7 @@
           </span>
           <br>
           <div class="variant">
-            <a href="">Демоверсия</a>
+            <a href="{{ url_for('get_task', kim_number=123456, task_number=0) }}">Демоверсия</a>
           </div>
         </div>
         <div class="variant_wrap">
@@ -32,10 +43,10 @@
           </span>
           <br>
           <div class="variant">
-            <a href="">М. Мигунов</a>
+            <a href="{{ url_for('get_task', kim_number=123456, task_number=0) }}">М. Мигунов</a>
           </div>
           <div class="variant">
-            <a href="">Д. Байт</a>
+            <a href="{{ url_for('get_task', kim_number=123456, task_number=0) }}">Д. Байт</a>
           </div>
         </div>
         {% for i in range(5,0,-1) %}
@@ -45,7 +56,7 @@
             <br>
             {% for i in range(25) %}
               <div class="variant">
-                <a href="">Демоверсия {{ i }}</a>
+                <a href="{{ url_for('get_task', kim_number=123456, task_number=0) }}">Демоверсия {{ i }}</a>
               </div>
             {% endfor %}
             <br>
@@ -53,7 +64,7 @@
             <br>
             {% for i in range(10) %}
               <div class="variant">
-                <a href="">Демоверсия# {{ i }}</a>
+                <a href="{{ url_for('get_task', kim_number=123456, task_number=0) }}">Демоверсия# {{ i }}</a>
               </div>
             {% endfor %}
             <br>
@@ -61,7 +72,7 @@
             <br>
             {% for i in range(20) %}
               <div class="variant">
-                <a href="">Л. Шастин # {{ i }}</a>
+                <a href="{{ url_for('get_task', kim_number=123456, task_number=0) }}">Л. Шастин # {{ i }}</a>
               </div>
             {% endfor %}
           </div>
