@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', path='css/profile_style.css') }}">
+{% endblock %}
+{% block content %}
+  <div class="app">
+
+  <div class="start-wrap">
+      <div class="header">
+
+          <div class="header_wrap">
+            <div class="icon_wrap">
+              <a class="fition_button"><!--TODO: сделать это ссылкой на главную станицу-->
+                <img class="icon" src="{{ url_for('static', path='images/logoEGE.png') }}">
+              </a>
+            </div>
+
+
+            <div class="icon_wrap">
+              <a class="fition_button"><!--TODO: сделать это ссылкой на страницу профиля-->
+                <img class="icon" src="{{ url_for('static', path='images/user_icon.svg') }}">
+              </a>
+            </div>
+          </div>
+
+      </div>
+
+      <div class="main">
+
+        <div class="list">
+
+          <div class="my_settings">
+            <a>Мои варианты</a>
+          </div>
+
+          <div class="my_settings">
+            <a>Мои задания</a>
+          </div>
+
+          <div class="my_settings">
+            <a>Мои статьи</a>
+          </div>
+
+          <div class="my_settings">
+            <a>Моя статистика</a>
+          </div>
+
+        </div>
+
+
+        <div class="content">
+          <div class="button_wrap">
+            <button class="buttons">Добавить вариант</button>
+          </div>
+
+          <div class="button_wrap">
+            <button class="buttons">Разложить в папки</button>
+          </div>
+
+          <div class="footer_search_wrap">
+          <div class="footer_search">
+            <img class="search_icon" src="{{ url_for('static', path='images/search_icon.svg') }}">
+            <input class="footer_input" type="text" placeholder="Найти" />
+          </div>
+        </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  </div>
+
+
+
+{% endblock %}

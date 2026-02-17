@@ -35,7 +35,12 @@ async def get_test(request: Request):
         }
     )
 
-
+@router.get("/profile", response_class=HTMLResponse)
+async def get_profile(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "profile.html",
+    )
 
 @router.get("/{kim_number}", response_class=HTMLResponse)
 async def get_kim(request: Request, kim_number: int):
@@ -69,4 +74,6 @@ async def get_task(request: Request, kim_number: int, task_number: int):
         }
     )
 
-# @router.get("/")
+
+
+
